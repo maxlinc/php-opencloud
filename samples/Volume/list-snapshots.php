@@ -20,11 +20,11 @@
 // * Prior to running this script, you must setup the following environment variables:
 //   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
 //   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
-//   * RAX_VOLUME_ID: ID of the volume whose snapshots you want to list. Run 
+//   * RAX_VOLUME_ID: ID of the volume whose snapshots you want to list. Run
 //     create-volume.php if you need to create one first.
 //
 
-require __DIR__ . '/../../vendor/autoload.php';
+require dirname(__FILE__) . '/../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
 // 1. Instantiate a Rackspace client.

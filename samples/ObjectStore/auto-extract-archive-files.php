@@ -24,7 +24,7 @@
 //   create-container.php if you need to create one first.
 //
 
-require __DIR__ . '/../../vendor/autoload.php';
+require dirname(__FILE__) . '/../vendor/autoload.php';
 use OpenCloud\Rackspace;
 use OpenCloud\ObjectStore\Constants\UrlType;
 

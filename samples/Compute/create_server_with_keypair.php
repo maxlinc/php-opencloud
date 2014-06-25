@@ -27,7 +27,7 @@
  * but this will change depending on what you called yours.
  */
 
-require __DIR__ . '/../../vendor/autoload.php';
+require dirname(__FILE__) . '/../vendor/autoload.php';
 
 use OpenCloud\Rackspace;
 use Guzzle\Http\Exception\BadResponseException;
