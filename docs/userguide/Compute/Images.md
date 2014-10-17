@@ -2,7 +2,7 @@
 
 ## Intro
 
-An image is a collection of files for a specific operating system that you use to create or rebuild a server. Rackspace provides prebuilt images. You can also create custom images from servers that you have launched. 
+An image is a collection of files for a specific operating system that you use to create or rebuild a server. Rackspace provides prebuilt images. You can also create custom images from servers that you have launched.
 
 In addition to creating images manually, you can also schedule images of your server automatically. Please consult the [official docs](http://docs.rackspace.com/servers/api/v2/cs-devguide/content/scheduled_images.html) for more information about this extension, including enabling and disabling scheduled images and showing scheduled images.
 
@@ -18,7 +18,7 @@ You first need to setup a Compute service. For information, please consult the [
 $images = $service->imageList();
 
 foreach ($images as $image) {
-	
+
 }
 ```
 

@@ -40,7 +40,7 @@ class DNS extends AbstractUnit implements UnitInterface
     public function main()
     {
         $domainName = 'domain-' . time() . '.com';
-        
+
         // Add a domain
         $this->step('Try to add a domain %s', $domainName);
 
@@ -61,22 +61,22 @@ class DNS extends AbstractUnit implements UnitInterface
         if ($asyncResponse->Status() == 'ERROR') {
             $this->stepInfo(
                 'Error: [%d] %s - %s',
-                $asyncResponse->error->code, 
-                $asyncResponse->error->message, 
+                $asyncResponse->error->code,
+                $asyncResponse->error->message,
                 $asyncResponse->error->details
             );
         }
-        
+
         // Add a CNAME
         $this->step("Adding a CNAME record www.%s", $domainName);
-        
+
         $domains = $this->getService()->domainList(array('name' => $domainName));
         $domain = $domains->getElement(0);
 
         $record = $domain->record();
         $asyncResponse = $record->create(array(
-            'type' => 'CNAME', 
-            'ttl'  => 600, 
+            'type' => 'CNAME',
+            'ttl'  => 600,
             'name' => 'www.'. $domainName,
             'data' => 'developer.rackspace.com'
         ));
@@ -84,8 +84,8 @@ class DNS extends AbstractUnit implements UnitInterface
 
         if ($asyncResponse->status() == 'ERROR') {
             $this->stepInfo(
-                'Error: [%d] $s - %s', 
-                $asyncResponse->error->code, 
+                'Error: [%d] $s - %s',
+                $asyncResponse->error->code,
                 $asyncResponse->error->message,
                 $asyncResponse->error->details
             );
@@ -98,12 +98,12 @@ class DNS extends AbstractUnit implements UnitInterface
 
         // List everything
         $this->step('List domains and records');
-        
+
         $domains = $this->getService()->domainList();
         $domains->setOption('limit.total', Enum::DISPLAY_ITER_LIMIT);
 
         foreach ($domains as $domain) {
-            
+
             $this->stepInfo('%s [%s]', $domain->name(), $domain->emailAddress);
             $step = $this->stepInfo('Domain Records:');
 
@@ -111,9 +111,9 @@ class DNS extends AbstractUnit implements UnitInterface
             foreach ($records as $record) {
                 $step->stepInfo(
                     '- %s %d %s %s',
-                    $record->type, 
-                    $record->ttl, 
-                    $record->name(), 
+                    $record->type,
+                    $record->ttl,
+                    $record->name(),
                     $record->data
                 );
             }

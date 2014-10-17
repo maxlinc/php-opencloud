@@ -75,8 +75,8 @@ private network (aka `SERVICENET`). If you have a cloud server instance in the s
 region as the database server instance, you will be able to connect to the database
 from that cloud server instance.
 
-If, however, you would like to access the database from the Internet, you will 
-need  to create a load balancer with an IP address that is routable from the 
+If, however, you would like to access the database from the Internet, you will
+need  to create a load balancer with an IP address that is routable from the
 Internet and attach the database server instance as a back-end node of this load
 balancer.
 
@@ -108,7 +108,7 @@ In the example above, a load balancer is created with the database server
 instance as its only back-end node. Further, this load balancer is configured
 to listen for MySQL connections on port 3306. Finally a virtual IP address (VIP)
 is configured in the `PUBLIC` network address space so that this load balancer
-may receive connections from the Internet. 
+may receive connections from the Internet.
 
 Once the load balancer is created and becomes `ACTIVE`, it's Internet-accessible
 IP addresses are printed out. If you connect to any of these IP addresses on port

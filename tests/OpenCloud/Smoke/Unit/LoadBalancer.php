@@ -68,8 +68,8 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
         $protocolList = $this->getService()->protocolList();
         foreach ($protocolList as $protocol) {
             $this->stepInfo(
-                '%s %4d', 
-                substr($protocol->name() . '..................', 0, 20), 
+                '%s %4d',
+                substr($protocol->name() . '..................', 0, 20),
                 $protocol->port
             );
         }
@@ -90,12 +90,12 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
 
             $i = 1;
             $total = $loadBalancers->count() > 10 ? 10 : $loadBalancers->count();
-            
+
             foreach ($loadBalancers as $loadBalancer) {
-                
+
                 $step = $this->stepInfo('Load balancer (%d/%d)', $i, $total);
                 $step->stepInfo(
-                    'ID [%s], Name [%s], Status [%s]', 
+                    'ID [%s], Name [%s], Status [%s]',
                     $loadBalancer->id,
                     $loadBalancer->name(),
                     $loadBalancer->status()
@@ -109,10 +109,10 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
                 } else {
                     foreach ($nodeList as $node) {
                         $step1->stepInfo('Node: [%s] %s:%d %s/%s',
-                            $node->id(), 
-                            $node->address, 
+                            $node->id(),
+                            $node->address,
                             $node->port,
-                            $node->condition, 
+                            $node->condition,
                             $node->status
                         );
                     }
@@ -126,7 +126,7 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
                 } else {
                     foreach ($nodeEvents as $event) {
                         $step2->stepInfo('Event: %s (%s)',
-                            $event->detailedMessage, 
+                            $event->detailedMessage,
                             $event->author
                         );
                     }
@@ -145,8 +145,8 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
                 $metadataList = $loadBalancer->metadataList();
                 foreach ($metadataList as $metadataItem) {
                     $step3->stepInfo('[Metadata #%s] %s=%s',
-                        $metadataItem->Id(), 
-                        $metadataItem->key, 
+                        $metadataItem->Id(),
+                        $metadataItem->key,
                         $metadataItem->value
                     );
                 }
@@ -160,14 +160,14 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
         // list Billable LBs
         $start = date('Y-m-d', time() - (3600 * 24 * 30));
         $end   = date('Y-m-d');
-        
+
         $this->step('Billable Load Balancers from %s to %s', $start, $end);
-        
+
         $list = $this->getService()->billableLoadBalancerList(array(
-            'startTime' => $start, 
+            'startTime' => $start,
             'endTime'   => $end
         ));
-        
+
         if ($list->count()) {
             foreach ($list as $lb) {
                 $this->stepInfo('%10s %s', $lb->Id(), $lb->name());

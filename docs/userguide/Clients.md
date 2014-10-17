@@ -50,7 +50,7 @@ The Client does not automatically authenticate against the API on object creatio
 
 You can force authentication, by calling:
 
-```php 
+```php
 $client->authenticate();
 ```
 
@@ -66,14 +66,14 @@ $catalog = $client->getCatalog();
 
 // Return a list of OpenCloud\Common\Service\CatalogItem objects
 foreach ($catalog->getItems() as $catalogItem) {
-	
+
     $name = $catalogItem->getName();
     $type = $catalogItem->getType();
-    
+
     if ($name == 'cloudServersOpenStack' && $type == 'compute') {
     	break;
     }
-    
+
     // Array of OpenCloud\Common\Service\Endpoint objects
     $endpoints = $catalogItem->getEndpoints();
     foreach ($endpoints as $endpoint) {

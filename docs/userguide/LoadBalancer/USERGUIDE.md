@@ -88,7 +88,7 @@ You can update one or more of the following load balancer attributes:
 * `protocol`: The network protocol used by traffic coming in to the load balancer. See also: [Protocols](#protocols).
 * `port`: The network port on which the load balancer listens for incoming traffic.
 * `halfClosed`: Enable or Disable Half-Closed support for the load balancer.
-* `timeout`: The timeout value for the load balancer to communicate with its nodes. 
+* `timeout`: The timeout value for the load balancer to communicate with its nodes.
 * `httpsRedirect`: Enable or disable HTTP to HTTPS redirection for the load balancer. When enabled, any HTTP request will return status code 301 (Moved Permanently), and the requestor will be redirected to the requested URL via the HTTPS protocol on port 443. For example, http://example.com/page.html would be redirected to https:// example.com/page.html. Only available for HTTPS protocol (`port` = 443), or HTTP Protocol with a properly configured SSL Termination (`secureTrafficOnly=true, securePort=443). See also: [SSL Termination](#ssl-termination).
 
 #### Updating a single attribute of a load balancer
@@ -111,7 +111,7 @@ $loadBalancer->update(array(
 When you no longer have a need for the load balancer, you can remove it.
 
 ```php
-$loadBalancer->delete(); 
+$loadBalancer->delete();
 ```
 
 ## Nodes
@@ -261,7 +261,7 @@ Please note that a load balancer must have at least one VIP associated with it. 
 
 ## Algorithms
 
-Load balancers use an **algorithm** to determine how incoming traffic is distributed amongst the back-end nodes. 
+Load balancers use an **algorithm** to determine how incoming traffic is distributed amongst the back-end nodes.
 
 ### List Load Balancing Algorithms
 
@@ -276,7 +276,7 @@ foreach ($algorithms as $algorithm) {
 
 ## Protocols
 
-When a load balancer is created a network protocol must be specified. This network protocol should be based on the network protocol of the back-end service being load balanced. 
+When a load balancer is created a network protocol must be specified. This network protocol should be based on the network protocol of the back-end service being load balanced.
 
 ### List Load Balancing Protocols
 

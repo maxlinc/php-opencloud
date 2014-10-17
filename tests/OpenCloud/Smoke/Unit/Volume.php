@@ -21,25 +21,25 @@ use OpenCloud\Smoke\Utils;
 
 /**
  * Description of Volume
- * 
- * @link 
+ *
+ * @link
  */
 class Volume extends AbstractUnit implements UnitInterface
-{    
+{
     /**
      * {@inheritDoc}
      */
     public function setupService()
     {
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function main()
     {
     }
-    
+
     /**
      * {@inheritDoc}
      */

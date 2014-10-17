@@ -68,6 +68,6 @@ class VolumeTest extends VolumeTestCase
     {
       $this->volume->rename(array(
           'size' => 314
-      ));      
+      ));
     }
 }

@@ -48,7 +48,7 @@ $compute->flavorList(true);
 ### Filters
 
 The optional second parameter to the `flavorList()` method is an
-associative array of filter parameters. See the 
+associative array of filter parameters. See the
 [List Flavors operation](http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Flavors-d1e4188.html)
  for a list of the available parameters.
 

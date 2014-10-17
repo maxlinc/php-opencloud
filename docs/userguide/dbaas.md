@@ -72,7 +72,7 @@ class corresponds to a single MySQL database.
 
 ### Creating a new database
 
-To create a new database, you must supply it with a name; you can optionally 
+To create a new database, you must supply it with a name; you can optionally
 specify its character set and collating sequence:
 
 ```php
@@ -132,7 +132,7 @@ $user->create(array(
 ));
 ```
 
-If you need to add a new database to a user after it's been created, you must 
+If you need to add a new database to a user after it's been created, you must
 delete the user and then re-add it.
 
 ### Deleting users
@@ -153,6 +153,6 @@ $rootUser = $instance->enableRootUser();
 ```
 
 This returns a regular `User` object with the `name` attribute set to `root` and the
-`password` attribute set to an auto-generated password. 
+`password` attribute set to an auto-generated password.
 
 To check if the root user is enabled, use the `isRootEnabled()` method.

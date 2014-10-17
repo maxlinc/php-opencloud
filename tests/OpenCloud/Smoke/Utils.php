@@ -28,32 +28,32 @@ namespace OpenCloud\Smoke;
 
 /**
  * Description of Utils
- * 
- * @link 
+ *
+ * @link
  */
 class Utils
 {
-    
+
     /**
      * Basic logging function.
-     * 
+     *
      * @param string $string
      */
     public static function log($string)
     {
         echo $string . PHP_EOL;
     }
-    
+
     public static function convertArgsToString(array $args)
     {
         $format = $args[0];
         unset($args[0]);
-        
+
         return vsprintf($format, $args);
     }
-    
+
     /**
-     * A logging function similar to sprintf(). Accepts a format string as a 
+     * A logging function similar to sprintf(). Accepts a format string as a
      * first argument, and an array as a second argument to stock the format.
      */
     public static function logf()
@@ -61,12 +61,12 @@ class Utils
         $string = self::convertArgsToString(func_get_args());
         return self::log($string);
     }
-    
+
     public static function logd()
     {
         return self::log(PHP_EOL . Enum::DIVIDER);
     }
-   
+
     /**
      * Outputs help.
      */
@@ -82,17 +82,17 @@ Switches:
     -E --exclude    Exclude a particular unit
 
 To exclude/include multiple units, either repeat the switch:
-            
+
     php Runner.php -Iautoscale --include="compute"
-            
+
 Or pass in a string delimeted with commas:
-            
+
     php Runner.php -Iautoscale,compute,queues
 
 EOF;
         return self::log($output);
     }
-        
+
     public static function getEnvVar($name, $prefix = Enum::ENV_PREFIX)
     {
         if (empty($_ENV)) {
@@ -102,7 +102,7 @@ EOF;
         }
         return (!isset($_ENV[$prefix . $name])) ? false : $_ENV[$prefix . $name];
     }
-    
+
     public static function getRegion()
     {
         if (false !== ($region = self::getEnvVar(Enum::ENV_REGION))) {
@@ -111,7 +111,7 @@ EOF;
             return Enum::DEFAULT_REGION;
         }
     }
-    
+
     public static function getIdentityEndpoint()
     {
         if (false !== ($endpoint = self::getEnvVar(Enum::ENV_IDENTITY_ENDPOINT))) {
@@ -120,5 +120,5 @@ EOF;
             return \OpenCloud\Rackspace::US_IDENTITY_ENDPOINT;
         }
     }
-    
+
 }

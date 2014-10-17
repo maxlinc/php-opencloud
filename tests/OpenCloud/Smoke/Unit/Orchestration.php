@@ -19,8 +19,8 @@ namespace OpenCloud\Smoke\Unit;
 
 /**
  * Description of Orchestration
- * 
- * @link 
+ *
+ * @link
  */
 class Orchestration extends AbstractUnit implements UnitInterface
 {
@@ -29,22 +29,22 @@ class Orchestration extends AbstractUnit implements UnitInterface
      */
     public function setupService()
     {
-        
+
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function main()
     {
-        
+
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function teardown()
     {
-        
+
     }
 }

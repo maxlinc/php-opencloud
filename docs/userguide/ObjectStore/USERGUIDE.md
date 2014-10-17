@@ -28,7 +28,7 @@ To use the object store service, you must first instantiate a `OpenStack` or `Ra
         'apiKey'   => '<YOUR RACKSPACE CLOUD ACCOUNT API KEY>'
     ));
     ```
-    
+
 ### Object Store Service
 All operations on the object store are done via an object store service object.
 
@@ -94,7 +94,7 @@ $containerMetadata = $container->getMetadata();
 [ [Get the executable PHP script for this example](/samples/ObjectStore/get-container-metadata.php) ]
 
 ### Delete Container
-When you no longer have a need for the container, you can remove it. 
+When you no longer have a need for the container, you can remove it.
 
 If the container is empty (that is, it has no objects in it), you can remove it as shown below:
 
@@ -212,7 +212,7 @@ $metadata = array('author' => 'Jane Doe');
 
 $customHeaders = array();
 $metadataHeaders = DataObject::stockHeaders($metadata);
-$allHeaders = $customHeaders + $metadataHeaders; 
+$allHeaders = $customHeaders + $metadataHeaders;
 
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData, $allHeaders);
@@ -337,7 +337,7 @@ You can list all the objects stored in a container. An instance of `OpenCloud\Co
 ```php
 $objects = $container->objectList();
 foreach ($objects as $object) {
-    /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/	
+    /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/
 }
 ```
 [ [Get the executable PHP script for this example](/samples/ObjectStore/list-objects.php) ]

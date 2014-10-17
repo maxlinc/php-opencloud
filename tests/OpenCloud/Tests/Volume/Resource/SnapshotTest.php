@@ -67,6 +67,6 @@ class SnapshotTest extends VolumeTestCase
     {
       $this->volume->rename(array(
           'volume_id' => 'abcd-ef12'
-      ));      
+      ));
     }
 }

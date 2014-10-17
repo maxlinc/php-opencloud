@@ -33,16 +33,16 @@ class Database extends AbstractUnit implements UnitInterface
     public function main()
     {
         $this->step('Get Flavors');
-        
+
         $flavors = $this->getService()->flavorList();
         //$flavors->sort();
         foreach ($flavors as $flavor) {
             $this->stepInfo('%s - %dM', $flavor->name, $flavor->ram);
         }
 
-        
+
         $this->step('Creating a Database Instance');
-        
+
         $instance = $this->getService()->instance();
         $instance->name = $this->prepend(self::INSTANCE_NAME);
         $instance->flavor = $this->getService()->flavor(1);
@@ -50,9 +50,9 @@ class Database extends AbstractUnit implements UnitInterface
         $instance->create();
         $instance->waitFor('ACTIVE', 600, $this->getWaiterCallback());
 
-        
+
         $this->step('Is the root user enabled?');
-        
+
         if ($instance->isRootEnabled()) {
             $this->stepInfo('Yes');
         } else {
@@ -60,14 +60,14 @@ class Database extends AbstractUnit implements UnitInterface
         }
 
         $this->step('Creating a new database');
-        
+
         $db = $instance->database();
         $db->create(array(
             'name' => $this->prepend(self::DATABASE_NAME)
         ));
-        
+
         $this->step('Creating a new database user');
-        
+
         $user = $instance->user();
         $user->create(array(
             'name'      => 'SmokeTest',
@@ -91,10 +91,10 @@ class Database extends AbstractUnit implements UnitInterface
     public function teardown()
     {
         $this->step('Teardown');
-        
+
         $instances = $this->getService()->instanceList();
         foreach ($instances as $instance) {
-            
+
             // Users
             $users = $instance->userList();
             foreach ($users as $user) {
@@ -103,7 +103,7 @@ class Database extends AbstractUnit implements UnitInterface
                     $user->delete();
                 }
             }
-            
+
             // Databases
             $databases = $instance->databaseList();
             foreach ($databases as $database) {
@@ -112,12 +112,12 @@ class Database extends AbstractUnit implements UnitInterface
                     $database->delete();
                 }
             }
-            
-            // Instance            
+
+            // Instance
             if ($this->shouldDelete($instance->name)) {
                 $this->stepInfo('Deleting instance: %s', $instance->id);
                 $instance->delete();
-            } 
+            }
         }
     }
 }

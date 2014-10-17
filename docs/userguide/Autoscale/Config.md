@@ -36,7 +36,7 @@ $groupConfig->update(array(
 $launchConfig = $group->getLaunchConfig();
 
 $server = $launchConfig->args->server;
-$server->name = "BRAND NEW SERVER NAME"; 
+$server->name = "BRAND NEW SERVER NAME";
 
 $launchConfig->update(array
     'args' => array(

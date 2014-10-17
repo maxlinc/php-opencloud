@@ -19,29 +19,29 @@ namespace OpenCloud\Smoke\Unit;
 
 class Autoscale extends AbstractUnit implements UnitInterface
 {
-    
+
     /**
      * {@inheritDoc}
      */
     public function setupService()
     {
-        
+
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function main()
     {
-        
+
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function teardown()
     {
-        
+
     }
-    
+
 }

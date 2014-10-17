@@ -187,5 +187,5 @@ class QueueTest extends QueuesTestCase
         $options = $messages->getOptions();
         $this->assertEquals('false', $options['baseUrl']->getQuery()->get('echo'));
 
-    } 
+    }
 }

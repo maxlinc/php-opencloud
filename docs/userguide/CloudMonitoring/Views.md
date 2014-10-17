@@ -8,12 +8,12 @@ Views contain a combination of data that usually includes multiple, different ob
 
 ```php
 $views = $service->getViews();
-      
+
 foreach ($views as $view) {
 	$entity = $view->getEntity();
-    
+
     echo $view->getTimestamp();
 }
  ```
- 
+
 Please consult the [iterator doc](docs/userguide/Iterators.md) for more information about iterators.

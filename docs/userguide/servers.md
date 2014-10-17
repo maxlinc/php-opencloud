@@ -182,7 +182,7 @@ made while it was in rescue mode).
 ## What next?
 
 * See also [Working with Networks](networks.md).
-* To learn about dynamic 
-  volume creation and assignment, see 
+* To learn about dynamic
+  volume creation and assignment, see
   [Working with Volumes](volumes.md).
 

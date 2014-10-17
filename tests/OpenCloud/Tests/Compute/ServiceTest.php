@@ -87,7 +87,7 @@ class ServiceTest extends ComputeTestCase
 
         $this->getClient()->computeService(null, 'DFW');
     }
-      
+
     public function testV1Dot1IsSupported()
     {
         $this->addMockSubscriber($this->getTestFilePath('Catalog_Compute_V1.1'));
@@ -95,5 +95,5 @@ class ServiceTest extends ComputeTestCase
 
         $computeService = $this->getClient()->computeService(null, 'DFW');
         $this->assertStringStartsWith('/v1.1', $computeService->getUrl()->getPath());
-    }      
+    }
 }

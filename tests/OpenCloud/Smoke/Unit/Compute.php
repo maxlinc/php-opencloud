@@ -24,8 +24,8 @@ use Guzzle\Http\Exception\ClientErrorResponseException;
 
 /**
  * Description of Compute
- * 
- * @link 
+ *
+ * @link
  */
 class Compute extends AbstractUnit implements UnitInterface
 {
@@ -60,19 +60,19 @@ class Compute extends AbstractUnit implements UnitInterface
         foreach ($imageList as $image) {
             $this->stepInfo('%s; ID: [%s]; OS distro: [%s]', $image->name, $image->id, $image->metadata->os_distro);
         }
-        
+
         // Create network
         $this->step('Create Network');
         $network = $this->getService()->network();
         try {
             $network->create(array(
-                'label' => $this->prepend(self::NETWORK_NAME), 
+                'label' => $this->prepend(self::NETWORK_NAME),
                 'cidr'  => '192.168.0.0/24'
             ));
         } catch (ClientErrorResponseException $e) {
             $this->stepInfo('Failed to create network :(');
         }
-        
+
         // List networks
         $this->step('List Networks');
         $networks = $this->getService()->networkList();
@@ -80,7 +80,7 @@ class Compute extends AbstractUnit implements UnitInterface
         foreach ($networks as $network) {
             $this->stepInfo('%s: %s (%s)', $network->id, $network->label, $network->cidr);
         }
-        
+
         // Volumes
         $this->step('Connect to the VolumeService');
         $volumeService = $this->getConnection()->volumeService('cloudBlockStorage', Utils::getRegion());
@@ -107,7 +107,7 @@ class Compute extends AbstractUnit implements UnitInterface
             'size'                => self::VOLUME_SIZE,
             'volume_type'         => $volumeService->volumeType($savedId)
         ));
-        
+
         // List volumes
         $this->step('Listing volumes');
         $volumeList = $volumeService->volumeList();
@@ -120,7 +120,7 @@ class Compute extends AbstractUnit implements UnitInterface
                 $volume1->size
             );
         }
-        
+
         // Create server
         $this->step('Create Server');
         $server = $this->getService()->server();
@@ -156,7 +156,7 @@ class Compute extends AbstractUnit implements UnitInterface
         ));
 
         sleep(3);
-        
+
         $this->step('Wait for Server rebuild');
         $server->waitFor('ACTIVE', 600, $this->getWaiterCallback());
 
@@ -166,7 +166,7 @@ class Compute extends AbstractUnit implements UnitInterface
         }
 
         sleep(3);
-        
+
         // Attach volume
         $this->step('Attach the volume');
         $server->attachVolume($volume);
@@ -199,7 +199,7 @@ class Compute extends AbstractUnit implements UnitInterface
 
         // Delete servers
         foreach ($servers as $server) {
-            
+
             $attachments = $server->volumeAttachmentList();
 
             foreach ($attachments as $volumeAttachment) {

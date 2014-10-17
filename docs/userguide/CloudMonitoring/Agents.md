@@ -109,11 +109,11 @@ $host = $monitoringService->getAgentHost();
 ```php
 $cpuInfo        = $host->info('cpus');
 $diskInfo       = $host->info('disks');
-$filesystemInfo = $host->info('filesystems'); 
-$memoryInfo     = $host->info('memory'); 
+$filesystemInfo = $host->info('filesystems');
+$memoryInfo     = $host->info('memory');
 $networkIntInfo = $host->info('network_interfaces');
 $processesInfo  = $host->info('processes');
-$systemInfo     = $host->info('system'); 
+$systemInfo     = $host->info('system');
 $userInfo       = $host->info('who');
 
 // What CPU models do we have?

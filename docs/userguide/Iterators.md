@@ -2,7 +2,7 @@
 
 ## Intro
 
-Iterators allow you to traverse over collections of your resources in an efficient and easy way. Currently there are two Iterators provided by the SDK: 
+Iterators allow you to traverse over collections of your resources in an efficient and easy way. Currently there are two Iterators provided by the SDK:
 
 - **ResourceIterator**. The standard iterator class that implements SPL's standard [Iterator](http://php.net/manual/en/class.iterator.php), [ArrayAccess](http://www.php.net/manual/en/class.arrayaccess.php) and [Countable](http://php.net/manual/en/class.countable.php) interfaces. In short, this allows you to traverse this object (using `foreach`), count its internal elements like an array (using `count` or `sizeof`), and access its internal elements like an array (using `$iterator[1]`).
 
@@ -20,10 +20,10 @@ There are two ways to traverse an iterator. The first is the longer, more tradit
 ```php
 while ($iterator->valid()) {
 	$flavor = $iterator->current();
-    
+
     // do stuff..
     echo $flavor->id;
-    
+
     $iterator->next();
 }
 ```

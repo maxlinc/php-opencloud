@@ -27,16 +27,16 @@ interface UnitInterface
      * Method for executing the main algorithm of the test.
      */
     public function main();
-    
+
     /**
      * Allows for the setting up of any required object variables.
      */
     public function setupService();
-    
+
     /**
-     * Allows for the deletion of any persistent resources created during 
+     * Allows for the deletion of any persistent resources created during
      * execution.
      */
     public function teardown();
-    
+
 }

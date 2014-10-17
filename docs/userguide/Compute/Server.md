@@ -19,12 +19,12 @@ $server   = $service->server($serverId);
 
 ## List servers
 
-You can list servers in two different ways: 
+You can list servers in two different ways:
 
 * return an _overview_ of each server (ID, name and links)
 * return _detailed information_ for each server
 
-Knowing which option to use might help save unnecessary bandwidth and reduce latency. 
+Knowing which option to use might help save unnecessary bandwidth and reduce latency.
 
 ```php
 // overview
@@ -84,7 +84,7 @@ try {
 }
 ```
 
-It's always best to be defensive when executing functionality over HTTP; you can achieve this best by wrapping calls in a try/catch block. It allows you to debug your failed operations in a graceful and efficient manner. 
+It's always best to be defensive when executing functionality over HTTP; you can achieve this best by wrapping calls in a try/catch block. It allows you to debug your failed operations in a graceful and efficient manner.
 
 ### Create parameters
 

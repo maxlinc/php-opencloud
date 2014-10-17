@@ -56,7 +56,7 @@ $params = array(
 	'label'  => 'Website check 1'
 );
 
-// You can do a test to see what would happen 
+// You can do a test to see what would happen
 // if a Check is launched with these params
 $response = $entity->testNewCheckParams($params);
 

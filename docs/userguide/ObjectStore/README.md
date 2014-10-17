@@ -59,5 +59,5 @@ $container->uploadObject($remoteFileName, $fileData);
 
 ## Next steps
 
-There is a lot more you can do with containers and objects. See 
+There is a lot more you can do with containers and objects. See
 the [complete user guide to the Object Store service](USERGUIDE.md).

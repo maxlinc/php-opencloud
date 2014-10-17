@@ -54,7 +54,7 @@ $serverTwoNode->port = 8080;
 $serverTwoNode->condition = 'ENABLED';
 ```
 
-In the example above, each node runs a service that listens on port 8080. Further, 
+In the example above, each node runs a service that listens on port 8080. Further,
 each node will start out as `ENABLED`, which means it will be ready to receive
 network traffic from the load balancer as soon as it is created.
 
@@ -70,11 +70,11 @@ $loadBalancer->create(array(
 ));
 ```
 
-In the example above, the load balancer will have a virtual IP address accessible 
+In the example above, the load balancer will have a virtual IP address accessible
 from the public Internet. Also notice that the port the load balancer listens
 on (80) does not need to match the ports of its nodes (8080).
 
 ## Next steps
 
-Once you have created a load balancer, there is a lot you can do with it. See 
+Once you have created a load balancer, there is a lot you can do with it. See
 the [complete user guide for load balancers](USERGUIDE.md).
