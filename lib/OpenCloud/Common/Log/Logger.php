@@ -18,6 +18,8 @@
 namespace OpenCloud\Common\Log;
 
 use OpenCloud\Common\Exceptions\LoggingException;
+use Psr\Log\AbstractLogger;
+use Psr\Log\LogLevel;
 
 /**
  * Basic logger for OpenCloud which extends FIG's PSR-3 standard logger.
@@ -233,7 +235,6 @@ class Logger extends AbstractLogger
             // Output to file
             file_put_contents($file, $this->formatFileLine($output), FILE_APPEND);
         } else {
-
             echo $output;
         }
     }

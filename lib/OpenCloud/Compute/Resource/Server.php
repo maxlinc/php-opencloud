@@ -77,6 +77,19 @@ class Server extends NovaResource implements HasPtrRecordsInterface
     public $image;
 
     /**
+     * The bootable volume for this server.
+     *
+     * @var Volume
+     */
+    public $volume;
+
+    /**
+     * Whether to delete the bootable volume when the server is terminated (deleted).
+     * @var boolean
+     */
+     public $volumeDeleteOnTermination;
+
+    /**
      * The Flavor for this server.
      *
      * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Flavors-d1e4188.html
@@ -140,6 +153,24 @@ class Server extends NovaResource implements HasPtrRecordsInterface
      */
     public $metadata;
 
+    /**
+     * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ext_status.html
+     * @var string Virtual machine status.
+     */
+    public $extendedStatus;
+
+    /**
+     * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ext_status.html
+     * @var string Status indicating a running task
+     */
+    public $taskStatus;
+
+    /**
+     * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ext_status.html
+     * @var int Power status of the VM
+     */
+    public $powerStatus;
+
     protected static $json_name = 'server';
     protected static $url_resource = 'servers';
 
@@ -166,6 +197,15 @@ class Server extends NovaResource implements HasPtrRecordsInterface
      * @var string
      */
     public $user_data;
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $aliases = array(
+        'OS-EXT-STS:vm_state'    => 'extendedStatus',
+        'OS-EXT-STS:task_state'  => 'taskStatus',
+        'OS-EXT-STS:power_state' => 'powerStatus',
+    );
 
     /**
      * Creates a new Server object and associates it with a Compute service
@@ -622,9 +662,22 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             $server->metadata = $this->metadata->toArray();
         }
 
+        // Boot from volume
+        if ($this->volume instanceof Volume) {
+            $this->checkExtension('os-block-device-mapping-v2-boot');
+
+            $server->block_device_mapping_v2 = array();
+            $server->block_device_mapping_v2[] = (object) array(
+                'source_type' => 'volume',
+                'destination_type' => 'volume',
+                'uuid' => $this->volume->id,
+                'boot_index' => 0,
+                'delete_on_termination' => (boolean) $this->volumeDeleteOnTermination
+            );
+        }
+
         // Networks
         if (is_array($this->networks) && count($this->networks)) {
-
             $server->networks = array();
 
             foreach ($this->networks as $network) {
@@ -681,5 +734,45 @@ class Server extends NovaResource implements HasPtrRecordsInterface
     protected function updateJson($params = array())
     {
         return (object) array('server' => (object) $params);
+    }
+
+    /**
+     * Suspend a server
+     *
+     * A suspend request suspend an instance, its VM state is stored on disk, all memory is written
+     * to disk, and the virtual machine is stopped. Suspending an instance is similar to placing a
+     * device in hibernation; memory and vCPUs become available to create other instances.
+     *
+     * @api
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function suspend()
+    {
+        // The suspend action is only available when the os-admin-actions extension is installed.
+        $this->checkExtension('os-admin-actions');
+
+        $object = (object) array('suspend' => 'none');
+
+        return $this->action($object);
+    }
+
+    /**
+     * Resume a server
+     *
+     * A resume request resumes a suspended instance, its VM state was stored on disk, all memory was written
+     * to disk, and the virtual machine was stopped. Resuming a suspended instance is similar to resuming a
+     * device from hibernation.
+     *
+     * @api
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function resume()
+    {
+        // The resume action is only available when the os-admin-actions extension is installed.
+        $this->checkExtension('os-admin-actions');
+
+        $object = (object) array('resume' => 'none');
+
+        return $this->action($object);
     }
 }

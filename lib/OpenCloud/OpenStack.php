@@ -29,6 +29,7 @@ use OpenCloud\Identity\Resource\Tenant;
 use OpenCloud\Identity\Resource\Token;
 use OpenCloud\Identity\Resource\User;
 use OpenCloud\Identity\Service as IdentityService;
+use Psr\Log\LoggerInterface;
 
 define('RACKSPACE_US', 'https://identity.api.rackspacecloud.com/v2.0/');
 define('RACKSPACE_UK', 'https://lon.identity.api.rackspacecloud.com/v2.0/');
@@ -61,7 +62,7 @@ class OpenStack extends Client
     private $catalog;
 
     /**
-     * @var \OpenCloud\Common\Log\LoggerInterface The object responsible for logging output
+     * @var LoggerInterface The object responsible for logging output
      */
     private $logger;
 
@@ -122,7 +123,6 @@ class OpenStack extends Client
         $identity = IdentityService::factory($this);
 
         if (is_string($token)) {
-
             if (!$this->token) {
                 $this->setTokenObject($identity->resource('Token'));
             }
@@ -197,7 +197,6 @@ class OpenStack extends Client
         $identity = IdentityService::factory($this);
 
         if (is_numeric($tenant)) {
-
             if (!$this->tenant) {
                 $this->setTenantObject($identity->resource('Tenant'));
             }
@@ -263,10 +262,11 @@ class OpenStack extends Client
     }
 
     /**
-     * @param Common\Log\LoggerInterface $logger
+     * @param LoggerInterface $logger
+     *
      * @return $this
      */
-    public function setLogger(Common\Log\LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
 
@@ -274,7 +274,7 @@ class OpenStack extends Client
     }
 
     /**
-     * @return Common\Log\LoggerInterface
+     * @return LoggerInterface
      */
     public function getLogger()
     {
@@ -304,7 +304,6 @@ class OpenStack extends Client
     public function getCredentials()
     {
         if (!empty($this->secret['username']) && !empty($this->secret['password'])) {
-
             $credentials = array('auth' => array(
                 'passwordCredentials' => array(
                     'username' => $this->secret['username'],
@@ -541,6 +540,24 @@ class OpenStack extends Client
     public function imageService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'OpenCloud\Image\Service', array(
+            'name'    => $name,
+            'region'  => $region,
+            'urlType' => $urltype
+        ));
+    }
+
+    /**
+     * Creates a new Networking (Neutron) service object
+     *
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\Networking\Service
+     * @codeCoverageIgnore
+     */
+    public function networkingService($name = null, $region = null, $urltype = null)
+    {
+        return ServiceBuilder::factory($this, 'OpenCloud\Networking\Service', array(
             'name'    => $name,
             'region'  => $region,
             'urlType' => $urltype

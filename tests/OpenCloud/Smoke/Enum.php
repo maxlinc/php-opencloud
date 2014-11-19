@@ -28,12 +28,11 @@ namespace OpenCloud\Smoke;
 
 /**
  * Description of Enum
- * 
- * @link 
+ *
+ * @link
  */
 class Enum
 {
-    
     const USER_AGENT = 'PHP OpenCloud SMOKETEST';
     
     const CREDS_FILENAME = '.smoketestCredentials';
@@ -49,11 +48,10 @@ class Enum
     const ENV_IDENTITY_ENDPOINT = 'IDENTITY_ENDPOINT';
     
     // Defaults
-    const DEFAULT_REGION = 'ORD';
+    const DEFAULT_REGION = 'IAD';
     
     // How many iterations do we want for resource lists? We don't have all day...
     const DISPLAY_ITER_LIMIT = 10;
     
     const DIVIDER = '-------------';
-    
 }

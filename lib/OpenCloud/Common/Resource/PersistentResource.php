@@ -132,6 +132,22 @@ abstract class PersistentResource extends BaseResource
         return $response;
     }
 
+
+    /**
+     * Causes resource to refresh based on parent's URL
+     */
+    protected function refreshFromParent()
+    {
+        $url = clone $this->getParent()->getUrl();
+        $url->addPath($this->resourceName());
+
+        $response = $this->getClient()->get($url)->send();
+
+        if (null !== ($decoded = $this->parseResponse($response))) {
+            $this->populate($decoded);
+        }
+    }
+
     /**
      * Given a `location` URL, refresh this resource
      *
@@ -168,7 +184,6 @@ abstract class PersistentResource extends BaseResource
         $states = array('ERROR', $state);
 
         while (true) {
-
             $this->refresh($this->getProperty($this->primaryKeyField()));
 
             if ($callback) {
@@ -202,7 +217,7 @@ abstract class PersistentResource extends BaseResource
 
         foreach ($this->createKeys as $key) {
             if (null !== ($property = $this->getProperty($key))) {
-                $element->{$this->getAlias($key)} = $property;
+                $element->{$this->getAlias($key)} = $this->recursivelyAliasPropertyValue($property);
             }
         }
 
@@ -230,11 +245,56 @@ abstract class PersistentResource extends BaseResource
     }
 
     /**
+     * Returns the given property value's alias, if configured; Else, the
+     * unchanged property value is returned. If the given property value
+     * is an array or an instance of \stdClass, it is aliases recursively.
+     *
+     * @param  mixed $propertyValue Array or \stdClass instance to alias
+     * @return mixed Property value, aliased recursively
+     */
+    protected function recursivelyAliasPropertyValue($propertyValue)
+    {
+        if (is_array($propertyValue)) {
+            foreach ($propertyValue as $key => $subValue) {
+                $aliasedSubValue = $this->recursivelyAliasPropertyValue($subValue);
+                if (is_numeric($key)) {
+                    $propertyValue[$key] = $aliasedSubValue;
+                } else {
+                    unset($propertyValue[$key]);
+                    $propertyValue[$this->getAlias($key)] = $aliasedSubValue;
+                }
+            }
+        } elseif (is_object($propertyValue) && ($propertyValue instanceof \stdClass)) {
+            foreach ($propertyValue as $key => $subValue) {
+                unset($propertyValue->$key);
+                $propertyValue->{$this->getAlias($key)} = $this->recursivelyAliasPropertyValue($subValue);
+            }
+        }
+
+        return $propertyValue;
+    }
+
+    /**
      * Provides JSON for update request body
      */
     protected function updateJson($params = array())
     {
-        throw new UpdateError('updateJson() must be overriden in order for an update to happen');
+        if (!isset($this->updateKeys)) {
+            throw new \RuntimeException(sprintf(
+                'This resource object [%s] must have a visible updateKeys array',
+                get_class($this)
+            ));
+        }
+
+        $element = (object) array();
+
+        foreach ($this->updateKeys as $key) {
+            if (null !== ($property = $this->getProperty($key))) {
+                $element->{$this->getAlias($key)} = $this->recursivelyAliasPropertyValue($property);
+            }
+        }
+
+        return (object) array($this->jsonName() => (object) $element);
     }
 
     /**

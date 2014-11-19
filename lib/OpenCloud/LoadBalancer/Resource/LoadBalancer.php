@@ -84,6 +84,14 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public $algorithm;
 
+
+    /**
+     * Enables or disables HTTP to HTTPS redirection for the load balancer.
+     *
+     * @var bool
+     */
+    public $httpsRedirect;
+
     /**
      * Current connection logging configuration.
      *
@@ -166,7 +174,8 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         'connectionLogging',
         'connectionThrottle',
         'healthMonitor',
-        'sessionPersistence'
+        'sessionPersistence',
+        'httpsRedirect'
     );
 
     /**
@@ -246,7 +255,11 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         $requests = array();
 
         foreach ($this->nodes as $node) {
-            $requests[] = $this->getClient()->post($node->getUrl(), self::getJsonHeader(), $node->createJson());
+            // Only add the node if it is new
+            if (null === $node->getId()) {
+                $json = json_encode($node->createJson());
+                $requests[] = $this->getClient()->post($node->getUrl(), self::getJsonHeader(), $json);
+            }
         }
 
         return $this->getClient()->send($requests);
@@ -619,7 +632,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
 
     protected function updateJson($params = array())
     {
-        $updatableFields = array('name', 'algorithm', 'protocol', 'port', 'timeout', 'halfClosed');
+        $updatableFields = array('name', 'algorithm', 'protocol', 'port', 'timeout', 'halfClosed', 'httpsRedirect');
 
         $fields = array_keys($params);
         foreach ($fields as $field) {

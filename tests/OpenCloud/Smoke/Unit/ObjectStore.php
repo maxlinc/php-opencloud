@@ -26,7 +26,6 @@ use OpenCloud\ObjectStore\Constants\UrlType;
 
 class ObjectStore extends AbstractUnit implements UnitInterface
 {
-    
     const OBJECT_NAME  = 'TestObject';
     const UPLOAD_COUNT = 50;
     const MASSIVE_FILE_PATH = '/tmp/massive.txt';
@@ -60,7 +59,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
     {
         // Container
         $this->step('Create Container');
-        $container = $this->getService()->createContainer($this->prepend(rand(1,99999)));
+        $container = $this->getService()->createContainer($this->prepend(rand(1, 99999)));
 
         // Upload normal file
         $this->step('Upload 1 file');
@@ -70,7 +69,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
 
         // Upload 50 objects
         $this->step('Upload ' . self::UPLOAD_COUNT . ' files');
-        $dir = __DIR__ . '/../Resource/ObjectStore/';
+        $dir = $this->getResourceDir();
         if (!file_exists($dir)) {
             mkdir($dir);
         }
@@ -81,7 +80,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         $files = array();
         for ($i = 1; $i <= 50; $i++) {
             $file = self::OBJECT_NAME . "_$i";
-            $files[] = array('name' => $file . '.txt', 'path' => __DIR__ . '/../Resource/ObjectStore/' . $file);
+            $files[] = array('name' => $file . '.txt', 'path' => $dir . '/' . $file);
         }
         $container->uploadObjects($files);
 
@@ -132,7 +131,6 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         $containers = $this->getService()->listContainers();
 
         foreach ($containers as $container) {
-
             $step = $this->stepInfo('Container: %s', $container->getName());
             
             // List this container's objects
@@ -140,7 +138,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
             foreach ($containers as $container) {
                 $step->stepInfo('Object: %s', $object->getName());
             }
-        }        
+        }
     }
 
     public function teardown()
@@ -156,7 +154,8 @@ class ObjectStore extends AbstractUnit implements UnitInterface
             $this->stepInfo('Disable Container CDN');
             try {
                 $container->disableCDN();
-            } catch (CdnNotAvailableError $e) {}
+            } catch (CdnNotAvailableError $e) {
+            }
             
             $step = $this->stepInfo('Delete objects');
             $objects = $container->objectList();

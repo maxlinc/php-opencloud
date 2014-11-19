@@ -21,7 +21,6 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class MetricTest extends CloudMonitoringTestCase
 {
-
     const CHECK_ID = 'chAAAA';
     const METRIC_NAME = 'mzdfw.available';
 
@@ -98,6 +97,25 @@ class MetricTest extends CloudMonitoringTestCase
                 'to'         => 1369760279018
             ))
         );
+    }
+
+    /**
+     * @mockFile Metrics_DataPoints
+     */
+    public function testDataPointsInfo()
+    {
+        $data = $this->check->fetchDataPoints(self::METRIC_NAME, array(
+            'resolution' => 'FULL',
+            'select'     => 'average',
+            'from'       => 1369756378450,
+            'to'         => 1369760279018
+        ));
+
+        foreach ($data as $info) {
+            $this->assertObjectHasAttribute('numPoints', $info);
+            $this->assertObjectHasAttribute('timestamp', $info);
+            $this->assertObjectHasAttribute('average', $info);
+        }
     }
 
     /**

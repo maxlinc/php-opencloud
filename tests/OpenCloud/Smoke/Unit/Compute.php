@@ -24,8 +24,8 @@ use Guzzle\Http\Exception\ClientErrorResponseException;
 
 /**
  * Description of Compute
- * 
- * @link 
+ *
+ * @link
  */
 class Compute extends AbstractUnit implements UnitInterface
 {
@@ -35,7 +35,7 @@ class Compute extends AbstractUnit implements UnitInterface
     const SERVER_NAME  = 'FooServer';
     const SNAPSHOT_NAME = 'FooSnapshot';
 
-    const FLAVOR = 'performance1-2';
+    const FLAVOR = 'general1-2';
     const IMAGE  = "046832f9-4549-4b38-a903-11acecac8cb9";
 
     public function setupService()
@@ -66,7 +66,7 @@ class Compute extends AbstractUnit implements UnitInterface
         $network = $this->getService()->network();
         try {
             $network->create(array(
-                'label' => $this->prepend(self::NETWORK_NAME), 
+                'label' => $this->prepend(self::NETWORK_NAME),
                 'cidr'  => '192.168.0.0/24'
             ));
         } catch (ClientErrorResponseException $e) {
@@ -199,7 +199,6 @@ class Compute extends AbstractUnit implements UnitInterface
 
         // Delete servers
         foreach ($servers as $server) {
-            
             $attachments = $server->volumeAttachmentList();
 
             foreach ($attachments as $volumeAttachment) {

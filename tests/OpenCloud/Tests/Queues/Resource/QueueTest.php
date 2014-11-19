@@ -31,7 +31,6 @@ use OpenCloud\Tests\Queues\QueuesTestCase;
 
 class QueueTest extends QueuesTestCase
 {
-
     public function test_Create()
     {
         $this->addMockSubscriber($this->makeResponse(null, 201));
@@ -123,7 +122,7 @@ class QueueTest extends QueuesTestCase
     public function test_List_Message()
     {
         $this->assertInstanceOf(
-            self::COLLECTION_CLASS,
+            'OpenCloud\Queues\Collection\MessageIterator',
             $this->queue->setName('foo')->listMessages(array(
                 'ids' => array(100, 901, 58)
             ))
@@ -166,7 +165,6 @@ class QueueTest extends QueuesTestCase
 
     public function test_List_Messages_Boolean_Casting()
     {
-
         // Test true (boolean) casts to "true" (string)
         $messages = $this->queue->listMessages(array('echo' => true));
         $options = $messages->getOptions();
@@ -186,6 +184,5 @@ class QueueTest extends QueuesTestCase
         $messages = $this->queue->listMessages(array('echo' => 'false'));
         $options = $messages->getOptions();
         $this->assertEquals('false', $options['baseUrl']->getQuery()->get('echo'));
-
-    } 
+    }
 }
