@@ -8,6 +8,6 @@ tasks:
     #!/bin/bash
     wget --timestamping https://getcomposer.org/installer
     php installer
-    php composer.phar update
+    php composer.phar update --working-dir .. --no-dev
   run_sample: php {{sample_file}}
 
