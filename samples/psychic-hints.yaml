@@ -1,0 +1,13 @@
+---
+samples:
+  upload file: ObjectStore/upload-object.php
+  change metadata:  ObjectStore/update-object-metadata.php
+  get file: ObjectStore/get-object.php
+tasks:
+  bootstrap: |-
+    #!/bin/bash
+    wget --timestamping https://getcomposer.org/installer
+    php installer
+    php composer.phar update
+  run_sample: php {{sample_file}}
+
