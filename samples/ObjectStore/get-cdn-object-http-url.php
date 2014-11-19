@@ -28,7 +28,7 @@
 //   upload-object.php if you need to create it first.
 //
 
-require dirname(__FILE__) . '/../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
 // 1. Instantiate a Rackspace client.

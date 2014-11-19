@@ -26,7 +26,7 @@
 //   set-container-metadata.php if you need to set this field first.
 //
 
-require dirname(__FILE__) . '/../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
 // 1. Instantiate a Rackspace client.
