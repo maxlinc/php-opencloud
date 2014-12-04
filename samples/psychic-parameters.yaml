@@ -1,0 +1,19 @@
+---
+  username: {{ RAX_USERNAME }}
+  apiKey: {{ RAX_API_KEY }}
+  authUrl: {{ OS_AUTH_URL }}
+  certificate: my_cert
+  email: tester@example.com
+  flavorId: 12345
+  imageId: 45678
+  ipAddress: 127.0.0.1
+  loadBalancerId: 12345
+  name: max
+  privateKey: my_key
+  region: {{ RAX_REGION }}
+  serverId: 12345
+  serverName: my_server
+  userId: 12345
+  volumeId: 12345
+  volumeTypeId: 12345
+  containerName: my_container
