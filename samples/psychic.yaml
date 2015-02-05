@@ -1,0 +1,21 @@
+---
+options:
+  execution_strategy: tokens
+scripts:
+  upload file: ObjectStore/upload-object.php
+  change metadata:  ObjectStore/update-object-metadata.php
+  get file: ObjectStore/get-object.php
+  create networked server: Compute/create_server_with_network.php
+  create keypair: Compute/create_new_keypair.php
+  create load balancer: LoadBalancer/create-lb.php
+  secure load balancer: LoadBalancer/blacklist-ip-range.php
+  setup ssl: LoadBalancer/ssl-termination.php
+  delete load balancer: LoadBalancer/delete-lb.php
+tasks:
+  bootstrap: |-
+    #!/bin/bash
+    wget --timestamping https://getcomposer.org/installer
+    php installer
+    php composer.phar update --working-dir .. --no-dev
+  run_script: php {{script_file}}
+
